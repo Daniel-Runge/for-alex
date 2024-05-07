@@ -1,4 +1,5 @@
 plugins {
+	idea
 	java
 	id("org.springframework.boot") version "3.2.5"
 	id("io.spring.dependency-management") version "1.1.4"
@@ -6,6 +7,13 @@ plugins {
 
 group = "com.moonlit.mead"
 version = "0.0.1-SNAPSHOT"
+
+idea {
+	module {
+		isDownloadJavadoc = true
+		isDownloadSources = true
+	}
+}
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class IndexService {
@@ -29,7 +30,7 @@ public class IndexService {
         recipeRepository.save(recipe);
     }
 
-    public Optional<Recipe> findById(long id) {
+    public Optional<Recipe> findById(UUID id) {
         return recipeRepository.findById(id);
     }
 

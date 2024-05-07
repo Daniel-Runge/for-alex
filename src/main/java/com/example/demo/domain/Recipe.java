@@ -8,21 +8,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table
 public class Recipe {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @NotBlank(message = "Name is mandatory")
     private String name;
     @NotBlank(message = "Description is mandatory")
     private String description;
-//    private List<Ingredient> ingredients;
-
+    @OneToMany
+    private List<Ingredient> ingredients;
 }

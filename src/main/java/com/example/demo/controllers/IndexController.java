@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller("/")
 public class IndexController {
@@ -31,12 +32,12 @@ public class IndexController {
     }
 
     @GetMapping("/create")
-    public String showCreate(@ModelAttribute Recipe recipe, Model model) {
+    public String showCreate(@ModelAttribute Recipe recipe) {
         return "add-recipe";
     }
 
     @PostMapping("/addrecipe")
-    public String addUser(@ModelAttribute @Valid Recipe recipe, BindingResult result, Model model) {
+    public String addUser(@ModelAttribute @Valid Recipe recipe, BindingResult result) {
         if (result.hasErrors()) {
             return "add-recipe";
         }
@@ -46,7 +47,7 @@ public class IndexController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    public String showUpdateForm(@PathVariable("id") UUID id, Model model) {
         Recipe recipe = indexService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid recipe Id:" + id));
 
@@ -55,8 +56,8 @@ public class IndexController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateRecipe(@PathVariable("id") long id, @Valid Recipe recipe,
-                             BindingResult result, Model model) {
+    public String updateRecipe(@PathVariable("id") UUID id, @Valid Recipe recipe,
+                               BindingResult result) {
         if (result.hasErrors()) {
             recipe.setId(id);
             return "update-recipe";
@@ -67,7 +68,7 @@ public class IndexController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRecipe(@PathVariable("id") long id, Model model) {
+    public String deleteRecipe(@PathVariable("id") UUID id) {
         Recipe recipe = indexService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         indexService.delete(recipe);
